@@ -43,27 +43,20 @@ def main():
     except subprocess.CalledProcessError as e:
         print(f"Static collection failed: {e}")
     
-    # Start server with gunicorn
-    print(f"Starting Django server with gunicorn on 0.0.0.0:{port}")
+    # Start Django server directly (more reliable for this deployment)
+    print(f"Starting Django server on 0.0.0.0:{port}")
     try:
-        subprocess.run([
-            'gunicorn', 
-            'boss_shopp.wsgi:application',
-            '--bind', f'0.0.0.0:{port}',
-            '--workers', '2',
-            '--timeout', '120',
-            '--access-logfile', '-',
-            '--error-logfile', '-'
-        ], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Gunicorn failed: {e}")
-        print("Falling back to Django runserver...")
+        # Use Django's runserver for simplicity and reliability
         subprocess.run([
             sys.executable, 
             'manage.py', 
             'runserver', 
-            f'0.0.0.0:{port}'
-        ])
+            f'0.0.0.0:{port}',
+            '--noreload'
+        ], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Django server failed: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

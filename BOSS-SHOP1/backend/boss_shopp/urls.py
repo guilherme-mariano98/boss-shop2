@@ -21,36 +21,56 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 import os
 
+from django.views.static import serve
+from django.http import Http404
+
+def serve_frontend(request, path=''):
+    """Serve frontend files"""
+    frontend_dir = settings.BASE_DIR.parent / 'frontend'
+    
+    if not path:
+        path = 'index.html'
+    
+    try:
+        return serve(request, path, document_root=frontend_dir)
+    except Http404:
+        # If file not found, serve index.html (for SPA routing)
+        return serve(request, 'index.html', document_root=frontend_dir)
+
 def root_view(request):
-    """Root endpoint for deployment verification"""
-    return JsonResponse({
-        'message': 'Boss Shop is running!',
-        'status': 'OK',
-        'api_endpoints': {
-            'health': '/api/health/',
-            'admin': '/admin/',
-            'api': '/api/'
-        }
-    })
+    """Root endpoint - serve the main website"""
+    return serve_frontend(request, 'index.html')
 
 urlpatterns = [
-    path('', root_view, name='root'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]
 
-# Serve frontend files during development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Always serve static and media files
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Serve frontend files (both in development and production)
+frontend_dir = settings.BASE_DIR.parent / 'frontend'
+if os.path.exists(frontend_dir):
+    urlpatterns += [
+        path('', root_view, name='root'),
+        path('<path:path>', serve_frontend, name='frontend'),
+    ]
+else:
+    # Fallback if frontend directory doesn't exist
+    def fallback_view(request):
+        return JsonResponse({
+            'message': 'Boss Shop API is running!',
+            'status': 'OK',
+            'api_endpoints': {
+                'health': '/api/health/',
+                'admin': '/admin/',
+                'api': '/api/'
+            },
+            'note': 'Frontend files not found'
+        })
     
-    # Serve frontend HTML files
-    frontend_dir = settings.BASE_DIR.parent / 'frontend'
-    if os.path.exists(frontend_dir):
-        from django.views.static import serve
-        urlpatterns += [
-            path('', lambda request: serve(request, 'index.html', document_root=frontend_dir)),
-            path('<str:page>', lambda request, page: serve(request, page, document_root=frontend_dir) 
-                 if page and not page.startswith('api/') and not page.startswith('admin/') 
-                 else serve(request, 'index.html', document_root=frontend_dir)),
-        ]
+    urlpatterns += [
+        path('', fallback_view, name='root'),
+    ]

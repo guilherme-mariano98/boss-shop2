@@ -18,9 +18,23 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.http import JsonResponse
 import os
 
+def root_view(request):
+    """Root endpoint for deployment verification"""
+    return JsonResponse({
+        'message': 'Boss Shop is running!',
+        'status': 'OK',
+        'api_endpoints': {
+            'health': '/api/health/',
+            'admin': '/admin/',
+            'api': '/api/'
+        }
+    })
+
 urlpatterns = [
+    path('', root_view, name='root'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]

@@ -244,19 +244,66 @@ if __name__ == "__main__":
     if port:
         # Running on cloud platform - start Django directly
         print(f"Running on cloud platform - starting Django on port {port}")
-        backend_dir = os.path.join(os.path.dirname(__file__), 'src', 'backend')
-        if os.path.exists(backend_dir):
+        
+        # Try different possible backend directories
+        possible_dirs = [
+            os.path.join(os.path.dirname(__file__), 'BOSS-SHOP1', 'backend'),
+            os.path.join(os.path.dirname(__file__), 'src', 'backend'),
+            os.path.join(os.path.dirname(__file__), 'backend'),
+        ]
+        
+        backend_dir = None
+        for dir_path in possible_dirs:
+            print(f"Checking directory: {dir_path}")
+            if os.path.exists(dir_path):
+                print(f"Directory exists: {dir_path}")
+                manage_py_path = os.path.join(dir_path, 'manage.py')
+                run_server_path = os.path.join(dir_path, 'run_server.py')
+                print(f"Looking for manage.py at: {manage_py_path}")
+                print(f"Looking for run_server.py at: {run_server_path}")
+                if os.path.exists(manage_py_path) or os.path.exists(run_server_path):
+                    backend_dir = dir_path
+                    print(f"Found backend directory: {backend_dir}")
+                    break
+            else:
+                print(f"Directory does not exist: {dir_path}")
+        
+        if backend_dir:
             os.chdir(backend_dir)
-            os.system(f"python run_server.py --port {port}")
-        else:
-            # Fallback for different project structure
-            backend_dir = os.path.join(os.path.dirname(__file__), 'BOSS-SHOP1', 'backend')
-            if os.path.exists(backend_dir):
-                os.chdir(backend_dir)
+            print(f"Changed to directory: {backend_dir}")
+            
+            # Check if run_server.py exists and use it, otherwise use manage.py
+            run_server_path = os.path.join(backend_dir, 'run_server.py')
+            manage_py_path = os.path.join(backend_dir, 'manage.py')
+            
+            if os.path.exists(run_server_path):
+                print(f"Using run_server.py for startup")
+                os.system(f"python run_server.py")
+            elif os.path.exists(manage_py_path):
+                print(f"Using manage.py for startup")
+                # Set Django settings
+                os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'boss_shopp.settings')
+                os.environ.setdefault('DEBUG', 'False')
+                
+                # Run migrations and collect static files
+                print("Running migrations...")
+                os.system("python manage.py migrate --noinput")
+                
+                print("Collecting static files...")
+                os.system("python manage.py collectstatic --noinput")
+                
+                # Start Django server
+                print(f"Starting Django server on 0.0.0.0:{port}")
                 os.system(f"python manage.py runserver 0.0.0.0:{port}")
             else:
-                print("Backend directory not found!")
+                print("Error: Neither run_server.py nor manage.py found!")
                 sys.exit(1)
+        else:
+            print("Error: No valid Django backend directory found!")
+            print("Searched in:")
+            for dir_path in possible_dirs:
+                print(f"  - {dir_path}")
+            sys.exit(1)
     elif len(sys.argv) > 1 and sys.argv[1] == "flask":
         # Local Flask mode
         app.run(host='0.0.0.0', port=5000, debug=True)

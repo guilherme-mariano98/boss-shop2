@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 from .models import User, Category, Product, Order
 from .serializers import (
     UserSerializer, 
@@ -13,6 +14,17 @@ from .serializers import (
     OrderSerializer, 
     OrderCreateSerializer
 )
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def health_check(request):
+    """Simple health check endpoint"""
+    return Response({
+        'status': 'OK',
+        'message': 'Boss Shop API is running',
+        'debug': settings.DEBUG,
+        'version': '1.0.0'
+    })
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: boss-shop
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      cd BOSS-SHOP1/backend && python manage.py collectstatic --noinput
+      cd BOSS-SHOP1/backend && python manage.py migrate
+    startCommand: python production_start.py
+    envVars:
+      - key: PORT
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DJANGO_SETTINGS_MODULE
+        value: "boss_shopp.settings"
+      - key: PYTHONPATH
+        value: "/opt/render/project/src/BOSS-SHOP1/backend"
+    autoDeploy: true

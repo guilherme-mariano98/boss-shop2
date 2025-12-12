@@ -1,0 +1,28 @@
+{
+  "name": "boss-shop",
+  "version": "1.0.0",
+  "description": "Boss Shop - E-commerce Platform",
+  "main": "start.py",
+  "scripts": {
+    "start": "python start.py",
+    "dev": "python start.py",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilherme-mariano98/boss-shop2.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "django",
+    "javascript",
+    "web-app"
+  ],
+  "author": "Gustavo Mariano",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "python": ">=3.8.0"
+  }
+}

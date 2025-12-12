@@ -1,0 +1,40 @@
+========================================
+BOSS SHOP - DEPLOY NO RENDER
+========================================
+
+PASSO 1: CONFIGURAR REPOSITORIO
+- Execute: setup_repo.bat
+- Aguarde o upload para GitHub
+
+PASSO 2: DEPLOY NO RENDER
+1. Acesse: https://render.com
+2. Faça login com GitHub
+3. Clique em "New +" > "Web Service"
+4. Selecione: guilherme-mariano98/boss-shop2
+5. Clique em "Create Web Service"
+
+PASSO 3: AGUARDAR BUILD
+- O Render fará o build automaticamente
+- Tempo estimado: 5-10 minutos
+- Acompanhe os logs na tela
+
+PASSO 4: ACESSAR APLICACAO
+- URL final: https://boss-shop2.onrender.com
+- Teste todas as funcionalidades
+
+ARQUIVOS IMPORTANTES:
+- render.yaml: Configuração do Render
+- production_start.py: Script de inicialização
+- requirements.txt: Dependências Python
+- .gitignore: Arquivos ignorados pelo Git
+
+ATUALIZACOES FUTURAS:
+git add .
+git commit -m "Update"
+git push origin main
+
+O Render fará deploy automático!
+
+========================================
+SUPORTE: Verifique logs no Render
+========================================

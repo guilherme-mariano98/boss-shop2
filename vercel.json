@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "PI3 (2)/PI3 (1)/PI3/PI2/frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "PI3 (2)/PI3 (1)/PI3/PI2/frontend/index.html"
+    }
+  ]
+}

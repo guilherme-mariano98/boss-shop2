@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOSS SHOPP - Finalizar Compra</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="enhanced-styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="footer-styles.css">
 </head>
 <body>
     <!-- Header -->
@@ -385,54 +387,128 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <!-- Footer Moderno e Responsivo -->
+    <footer class="modern-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>BOSS SHOPP</h4>
-                    <p>Sua loja online com os melhores produtos e preços imperdíveis.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+            <!-- Seção Principal do Footer -->
+            <div class="footer-main">
+                <div class="footer-grid">
+                    <!-- Coluna 1: Sobre a Empresa -->
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <img src="boss-shop-logo.png" alt="BOSS SHOPP" class="footer-logo-img">
+                            <h3>BOSS SHOPP</h3>
+                        </div>
+                        <p class="footer-description">
+                            Sua loja online de confiança, oferecendo produtos de qualidade com preços competitivos e entrega rápida em todo o Brasil.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Atendimento</h4>
-                    <ul>
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Como Comprar</a></li>
-                        <li><a href="#">Frete e Entrega</a></li>
-                        <li><a href="#">Devoluções</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Sobre</h4>
-                    <ul>
-                        <li><a href="#">Nossa História</a></li>
-                        <li><a href="#">Trabalhe Conosco</a></li>
-                        <li><a href="#">Imprensa</a></li>
-                        <li><a href="#">Investidores</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Pagamento</h4>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-paypal"></i>
-                        <i class="fas fa-money-bill"></i>
+
+                    <!-- Coluna 2: Links Rápidos -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Links Rápidos</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Início</a></li>
+                            <li><a href="categorias.html">Categorias</a></li>
+                            <li><a href="sobre.html">Sobre Nós</a></li>
+                            <li><a href="como-comprar.html">Como Comprar</a></li>
+                            <li><a href="frete-entrega.html">Frete e Entrega</a></li>
+                            <li><a href="devolucoes.html">Trocas e Devoluções</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna 3: Categorias -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Categorias</h4>
+                        <ul class="footer-links">
+                            <li><a href="categoria-moda.html">Moda</a></li>
+                            <li><a href="categoria-eletronicos.html">Eletrônicos</a></li>
+                            <li><a href="categoria-casa.html">Casa e Decoração</a></li>
+                            <li><a href="categoria-esportes.html">Esportes</a></li>
+                            <li><a href="categoria-games.html">Games</a></li>
+                            <li><a href="categoria-infantil.html">Infantil</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna 4: Atendimento -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Atendimento</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>(11) 4002-8922</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>contato@bossshopp.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Seg-Sex: 8h às 18h</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>São Paulo, SP</span>
+                            </div>
+                        </div>
+                        <a href="central-ajuda.html" class="help-button">
+                            <i class="fas fa-headset"></i>
+                            Central de Ajuda
+                        </a>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Seção de Pagamento e Segurança -->
+            <div class="footer-payment">
+                <div class="payment-security">
+                    <div class="payment-methods">
+                        <h5>Formas de Pagamento</h5>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa" title="Visa"></i>
+                            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                            <i class="fab fa-cc-amex" title="American Express"></i>
+                            <i class="fab fa-pix" title="PIX"></i>
+                            <i class="fas fa-barcode" title="Boleto"></i>
+                        </div>
+                    </div>
+                    <div class="security-badges">
+                        <h5>Segurança</h5>
+                        <div class="security-icons">
+                            <i class="fas fa-shield-alt" title="Site Seguro"></i>
+                            <i class="fas fa-lock" title="SSL"></i>
+                            <i class="fas fa-certificate" title="Certificado"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rodapé Inferior -->
             <div class="footer-bottom">
-                <p>&copy; 2024 BOSS SHOPP. Todos os direitos reservados.</p>
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2025 BOSS SHOPP. Todos os direitos reservados.</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#" class="legal-link">Política de Privacidade</a>
+                        <a href="#" class="legal-link">Termos de Uso</a>
+                        <a href="#" class="legal-link">Cookies</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

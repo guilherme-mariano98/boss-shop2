@@ -1,102 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Recursos Aprimorados - BOSS SHOPP</title>
-    <link rel="stylesheet" href="optimized-styles.css">
-    <link rel="stylesheet" href="enhanced-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="footer-styles.css">
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-top">
-                <div class="header-links">
-                    <a href="index.html" class="header-link">Voltar para Home</a>
-                </div>
-            </div>
-        </div>
-    </header>
+#!/usr/bin/env python3
+"""
+Script para atualizar o rodapé em todas as páginas HTML do Boss Shop
+"""
+import os
+import re
+import glob
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <h1>BOSS SHOPP</h1>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Test Section -->
-    <section style="padding: 60px 0; background: #f8f9fa;">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 40px; color: #333;">Teste de Recursos Aprimorados</h2>
-            
-            <!-- Flash Sale Test -->
-            <section class="enhanced-flash-sale" style="margin-bottom: 60px;">
-                <div class="container">
-                    <div class="flash-sale-header">
-                        <div class="sale-badge">
-                            <i class="fas fa-bolt"></i>
-                            <span>OFERTA RELÂMPAGO</span>
-                        </div>
-                        <div class="countdown-container">
-                            <span class="countdown-label">Termina em:</span>
-                            <div class="countdown-timer">
-                                <div class="timer-unit">
-                                    <span id="hours" class="timer-number">12</span>
-                                    <span class="timer-label">horas</span>
-                                </div>
-                                <div class="timer-separator">:</div>
-                                <div class="timer-unit">
-                                    <span id="minutes" class="timer-number">34</span>
-                                    <span class="timer-label">min</span>
-                                </div>
-                                <div class="timer-separator">:</div>
-                                <div class="timer-unit">
-                                    <span id="seconds" class="timer-number">56</span>
-                                    <span class="timer-label">seg</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="products-grid">
-                        <div class="loading-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                            <div class="spinner"></div>
-                            <p>Carregando produtos em oferta...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Popular Products Test -->
-            <section class="popular-products">
-                <div class="container">
-                    <div class="section-header">
-                        <h3><i class="fas fa-fire"></i> Produtos em Alta</h3>
-                        <a href="#" class="view-all">Ver Todos</a>
-                    </div>
-                    
-                    <div class="products-grid">
-                        <div class="loading-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                            <div class="spinner"></div>
-                            <p>Carregando produtos populares...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </section>
-
-    <!-- Footer -->
-        <!-- Footer Moderno e Responsivo -->
+def get_new_footer():
+    """Retorna o HTML do novo rodapé"""
+    return '''    <!-- Footer Moderno e Responsivo -->
     <footer class="modern-footer">
         <div class="container">
             <!-- Seção Principal do Footer -->
@@ -220,41 +132,71 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>'''
 
-    <script src="enhanced-products.js"></script>
-    <script>
-        // Initialize test
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Enhanced features test page loaded');
+def update_footer_in_file(file_path):
+    """Atualiza o rodapé em um arquivo HTML específico"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Padrão para encontrar o footer antigo
+        footer_pattern = r'<!-- Footer -->\s*<footer class="footer">.*?</footer>'
+        
+        # Se não encontrar o padrão acima, tenta outros padrões
+        if not re.search(footer_pattern, content, re.DOTALL):
+            footer_pattern = r'<footer[^>]*>.*?</footer>'
+        
+        # Substitui o footer antigo pelo novo
+        new_content = re.sub(footer_pattern, get_new_footer(), content, flags=re.DOTALL)
+        
+        # Se houve mudança, salva o arquivo
+        if new_content != content:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(new_content)
+            print(f"✅ Rodapé atualizado em: {file_path}")
+            return True
+        else:
+            print(f"⚠️  Nenhum rodapé encontrado em: {file_path}")
+            return False
             
-            // Simulate timer
-            function startTestTimer() {
-                const hoursElement = document.getElementById('hours');
-                const minutesElement = document.getElementById('minutes');
-                const secondsElement = document.getElementById('seconds');
-                
-                let totalSeconds = 12 * 3600 + 34 * 60 + 56; // 12:34:56
-                
-                const timer = setInterval(() => {
-                    const hours = Math.floor(totalSeconds / 3600);
-                    const minutes = Math.floor((totalSeconds % 3600) / 60);
-                    const seconds = totalSeconds % 60;
-                    
-                    if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
-                    if (minutesElement) minutesElement.textContent = minutes.toString().padStart(2, '0');
-                    if (secondsElement) secondsElement.textContent = seconds.toString().padStart(2, '0');
-                    
-                    totalSeconds--;
-                    
-                    if (totalSeconds < 0) {
-                        totalSeconds = 24 * 3600; // Reset to 24 hours
-                    }
-                }, 1000);
-            }
-            
-            startTestTimer();
-        });
-    </script>
-</body>
-</html>
+    except Exception as e:
+        print(f"❌ Erro ao processar {file_path}: {e}")
+        return False
+
+def main():
+    """Função principal"""
+    print("🔄 Atualizando rodapés em todas as páginas HTML...")
+    print("=" * 50)
+    
+    # Diretório do frontend
+    frontend_dir = os.path.join('BOSS-SHOP1', 'frontend')
+    
+    if not os.path.exists(frontend_dir):
+        print(f"❌ Diretório não encontrado: {frontend_dir}")
+        return
+    
+    # Encontra todos os arquivos HTML
+    html_files = glob.glob(os.path.join(frontend_dir, '*.html'))
+    
+    if not html_files:
+        print("❌ Nenhum arquivo HTML encontrado!")
+        return
+    
+    updated_count = 0
+    total_files = len(html_files)
+    
+    # Atualiza cada arquivo
+    for html_file in html_files:
+        if update_footer_in_file(html_file):
+            updated_count += 1
+    
+    print("=" * 50)
+    print(f"📊 Resumo:")
+    print(f"   Total de arquivos: {total_files}")
+    print(f"   Arquivos atualizados: {updated_count}")
+    print(f"   Arquivos sem alteração: {total_files - updated_count}")
+    print("✨ Processo concluído!")
+
+if __name__ == "__main__":
+    main()
